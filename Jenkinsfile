@@ -3,6 +3,7 @@ pipeline{
         string(name: 'SOURCE_FILE',description: 'enter the webpage file',defaultValue: 'index.html')
         string(name: 'DESTINATION_FILE',description: 'enter the path file',defaultValue: 'index.nginx-debian.html')
         choice(name: 'SERVICE',choices:['nginx','apache','docker'],description: 'enter your service name')
+    }
     agent any
     stages{
         stage('Build'){
