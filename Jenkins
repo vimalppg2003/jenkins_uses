@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    stages{
+        stage('install nginx'){
+            steps{
+                sh """
+                    echo "install nginx"
+                    sudo apt update
+                    sudo apt install nginx -y
+                    sudo systemctl enable nginx
+                    sudo systemctl start nginx
+                """
+            }
+        }
+         stage('Build'){
+            steps{
+                sh """
+                    echo "runnig Build stage"
+                    sudo cp index.html /var/www/html/index.nginx-debian.html
+                    echo "complete Build stage"
+                """
+            }
+        }
+        stage('depoly'){
+            steps{
+                sh """
+                    echo "runnig depoly stage"
+                    sudo systemctl restart nginx
+                    echo "complete depoly stage"
+                """
+            }
+        }
+    }
+}
