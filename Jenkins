@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent { label 'server1' }
     stages{
         stage('install nginx'){
             steps{
@@ -21,12 +21,12 @@ pipeline{
                 """
             }
         }
-        stage('depoly'){
+        stage('deploy'){
             steps{
                 sh """
-                    echo "runnig depoly stage"
+                    echo "runnig deploy stage"
                     sudo systemctl restart nginx
-                    echo "complete depoly stage"
+                    echo "complete deploy stage"
                 """
             }
         }
