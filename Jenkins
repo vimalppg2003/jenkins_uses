@@ -21,12 +21,12 @@ pipeline{
                 """
             }
         }
-        stage('depoly'){
+        stage('deploy'){
             steps{
                 sh """
-                    echo "runnig depoly stage"
+                    echo "runnig deploy stage"
                     sudo systemctl restart nginx
-                    echo "complete depoly stage"
+                    echo "complete deploy stage"
                 """
             }
         }
