@@ -1,9 +1,0 @@
-
-prepare:
-    stage_name: prepare_ws
-build:
-    stage_name: build_code
-test:
-    stage_name: testing
-clean:
-    stage_name: clean_up
