@@ -1,16 +1,23 @@
 pipeline{
-    parameters{
-        string(name: 'SOURCE_FILE',description: 'enter the webpage file',defaultValue: 'index.html')
-        string(name: 'DESTINATION_FILE',description: 'enter the path file',defaultValue: 'index.nginx-debian.html')
-        choice(name: 'SERVICE',choices:['nginx','apache','docker'],description: 'enter your service name')
-    }
     agent any
     stages{
+         stage('install'){
+            steps{
+                sh """
+                    echo "runing nginx stage"
+                    sudo apt update
+                    sudo apt install nginx -y
+                    sudo systemctl enable nginx
+                    sudo systemctl start nginx
+                    echo "install completed"
+                """
+            }
+        }
         stage('Build'){
             steps{
                 sh """
                     echo "runing Build stage"
-                    sudo cp ${params.SOURCE_FILE} /var/www/html/${params.DESTINATION_FILE}
+                    sudo cp index.html /var/www/html/index.nginx-debian.html
                     echo "Build completed"
                 """
             }
@@ -19,7 +26,7 @@ pipeline{
             steps{
                 sh """
                     echo "runing Deploy stage"
-                    sudo systemctl restart ${params.SERVICE}
+                    sudo systemctl restart nginx
                     echo "Deploy completed"
                 """
             }
